@@ -1,9 +1,16 @@
 require 'quandl'
 class HomeController < ApplicationController
 	def index
-		Quandl::ApiConfig.api_key = 'exAUgh8NLoYAjuwd22PH'
-		Quandl::ApiConfig.api_version = '2015-04-09'
-		# @database = Quandl::Database.get('WIKI')
-		@dataset = Quandl::Dataset.get('WIKI/AAPL').data.first
+		if params[:ticker] == nil
+			@dataset = Stock.new.get_dataset 'AAPL'
+		else
+			begin
+				@dataset = Stock.new.get_dataset "#{params[:ticker]}"
+			rescue
+				@dataset = Stock.new.get_dataset 'AAPL'
+				params[:ticker] = 'AAPL'
+				render :index
+			end
+		end
 	end
 end

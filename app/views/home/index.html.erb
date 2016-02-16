@@ -1,6 +1,13 @@
-<%= @dataset.inspect %><br>
-<%= @dataset.date %><br>
-<%= @dataset.open %><br>
-<%= @dataset.high %><br>
-<%= @dataset.low %><br>
-<%= @dataset.close %><br>
+<%= form_tag '/' do %>
+	<%= label_tag :ticker %>
+	<%= text_field_tag :ticker %>
+	<%= submit_tag :submit %>
+<% end %>
+<pre>
+	<%= params[:ticker] == nil ? 'AAPL' : params[:ticker] %>
+	Date: <%= @dataset.date %><br>
+	Open: <%= @dataset.open %><br>
+	High: <%= @dataset.high %><br>
+	Low: <%= @dataset.low %><br>
+	Close: <%= @dataset.close %><br>
+</pre>
