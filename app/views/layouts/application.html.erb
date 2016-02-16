@@ -7,6 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<% if !current_user %>
+		<%= link_to "Sign Up For Stock SMS Updates", new_user_path %>
+		<%= link_to "Login", login_path %>
+	<% else %>
+		<%= link_to "Profile", user_path %>
+	<% end %>
 
 <%= yield %>
 
