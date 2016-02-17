@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>Quandl and Twilio Apis </title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <%# stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%# javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%# csrf_meta_tags %>
 </head>
 <body>
 	<% if !current_user %>
@@ -15,6 +15,7 @@
 		<%= link_to "Logout", logout_path, method: :delete %>
 	<% end %>
 	<%= flash[:alert] if flash[:alert] %>
+	<%# flash[:notice] if flash[:notice] %>
 <%= yield %>
 
 </body>
