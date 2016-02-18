@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   
     root 'home#index'
-    post '/' =>'home#index'
-    post '/message' => 'home#message'
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create'
-    delete '/logout' => 'sessions#destroy'
+    get '/logout' => 'sessions#destroy'
+    resources :messages, only: [:new, :create]
     resources :users
     resources :stocks
   # The priority is based upon order of creation: first created -> highest priority.

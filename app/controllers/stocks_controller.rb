@@ -21,4 +21,5 @@ class StocksController < ApplicationController
 		ticker = @stock.symbol
 		@dataset = Stock.get_dataset "#{ticker}"
 	end
+	
 end

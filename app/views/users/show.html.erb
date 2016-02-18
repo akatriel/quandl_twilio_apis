@@ -6,11 +6,13 @@
 	<%= submit_tag :submit %>
 <% end %>
 
-<%= link_to 'Edit User Info', edit_user_path(@user) %> |<%# link_to 'Back', users_path %>
-<br>
+<%= link_to 'Edit User Info', edit_user_path(@user) %><br>
 <h1>Portfolio</h1>
 <ul>
 	<% @portfolio.each do |p| %>
 		<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %></li>
 	<% end %>
 </ul>
+<%= form_tag messages_path do %>
+	<%= submit_tag "Send SMS"%>
+<% end %>
