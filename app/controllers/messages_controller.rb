@@ -11,3 +11,4 @@ class MessagesController < ApplicationController
 		redirect_to user_path(current_user)
 	end
 end
+#A user should be able to send a message to their phone with stock information. Including: Opening, Closing, High, and Low prices.	

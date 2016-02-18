@@ -10,7 +10,7 @@
 <h1>Portfolio</h1>
 <ul>
 	<% @portfolio.each do |p| %>
-		<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %></li>
+		<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %> | <%= link_to "Delete", stock_path(p), method: :delete %></li>
 	<% end %>
 </ul>
 <%= form_tag messages_path do %>

@@ -8,6 +8,24 @@ class Stock < ActiveRecord::Base
 	# @database = Quandl::Database.get('WIKI')
 	def self.get_dataset ticker
 		ticker = ticker.upcase
-		Quandl::Dataset.get("WIKI/#{ticker}").data.first
+		get_dataset_from_eod(ticker) unless get_dataset_from_wiki(ticker)
+	end
+
+	private
+	def self.get_dataset_from_wiki ticker
+		begin
+			@query = Quandl::Dataset.get("WIKI/#{ticker}").data.first
+			return @query
+		rescue
+			return false
+		end
+	end
+	def self.get_dataset_from_eod ticker
+		begin
+			@query = Quandl::Dataset.get("EOD/#{ticker}").data.first
+			return @query
+		rescue
+			return false
+		end
 	end
 end
