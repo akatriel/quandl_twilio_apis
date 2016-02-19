@@ -11,13 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217015648) do
+ActiveRecord::Schema.define(version: 20160219020610) do
 
   create_table "stocks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "symbol"
     t.integer  "user_id"
+    t.string   "date"
+    t.decimal  "open"
+    t.decimal  "close"
+    t.decimal  "high"
+    t.decimal  "low"
+    t.integer  "volume"
   end
 
   create_table "users", force: :cascade do |t|
