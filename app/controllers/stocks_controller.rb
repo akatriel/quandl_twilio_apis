@@ -22,6 +22,7 @@ class StocksController < ApplicationController
 		@stock = Stock.find params[:id]
 		ticker = @stock.symbol
 		@dataset = Stock.get_dataset "#{ticker}"
+		byebug
 
 	end
 
