@@ -1,18 +1,26 @@
-<p id="notice"><%= notice %></p>
-<h1> Welcome, <%= @user.username %> </h1>
-<%= form_tag @stock do %>
-	<%= label_tag :ticker %>
-	<%= text_field_tag :ticker %>
-	<%= submit_tag :submit %>
-<% end %>
+<div class="container">
+	<div class="center">
+		<p id="notice"><%= notice %></p>
+		<h1> Welcome, <%= @user.username %> </h1>
+		<%= link_to 'Edit User Info', edit_user_path(@user) %>
+		<br>
 
-<%= link_to 'Edit User Info', edit_user_path(@user) %><br>
-<h1>Portfolio</h1>
-<ul>
-	<% @portfolio.each do |p| %>
-		<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %> | <%= link_to "Delete", stock_path(p), method: :delete %></li>
-	<% end %>
-</ul>
-<%= form_tag messages_path do %>
-	<%= submit_tag "Send SMS"%>
-<% end %>
+		<hr>
+		<%= form_tag @stock do %>
+			<%= label_tag :ticker %>
+			<%= text_field_tag :ticker %>
+			<%= submit_tag "Add"%>
+		<% end %>
+
+		<h1>Portfolio</h1>
+		<hr>
+		<ul>
+			<% @portfolio.each do |p| %>
+				<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %> | <%= link_to "Delete", stock_path(p), method: :delete %></li>
+			<% end %>
+		</ul>
+		<%= form_tag messages_path do %>
+			<%= submit_tag "Send SMS"%>
+		<% end %>
+	</div>
+</div>

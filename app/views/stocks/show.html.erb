@@ -1,10 +1,12 @@
-<h1><%= @stock.symbol %></h1>
-
-<ul>
-	<li>Date: <%= @stock.date %></li>
-	<li>Open: <%= @stock.open %></li>
-	<li>Close: <%= @stock.close %></li>
-	<li>High: <%= @stock.high %></li>
-	<li>Low: <%= @stock.low %></li>
-	<li>Volume: <%= @stock.volume %></li>
-</ul>
+<div class="container">
+	<h1><%= @stock.symbol %></h1>
+	<hr>
+	<ul>
+		<li><p>Date: <%= @stock.date %></p></li>
+		<li><p>Open: <%= @stock.open %></p></li>
+		<li><p>Close: <%= @stock.close %></p></li>
+		<li><p>High: <%= @stock.high %></p></li>
+		<li><p>Low: <%= @stock.low %></p></li>
+		<li><p>Volume: <%= @stock.volume %></p></li>
+	</ul>
+</div>

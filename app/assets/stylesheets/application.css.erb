@@ -13,3 +13,43 @@
  *= require_tree .
  *= require_self
  */
+body{
+	background-image: url(<%= asset_path 'cityscape2.jpeg' %>);
+	background-size: cover;	
+	background-repeat: no-repeat;
+	/* needs media query for mobile size because background image gets pulled up and below other content */
+}
+a, a:visited{
+	color: #1792D7;
+}
+
+.container {
+	width:60%;
+	background-color: #353535;
+	padding: 2%;
+	border-radius:5px;
+	border:1px solid orange;
+}
+.center{
+	width: 90%;
+	margin:0 auto;
+	padding:2%;
+	color: orange;
+}
+h1, p, label{
+	color: orange ;
+}
+input{
+	color: #353535;
+}
+#mnav a{
+	color:orange;
+}
+.jumbotron{
+	text-align: center;
+	background-color: #353535;
+	color: orange;
+}
+.jumbotron h2{
+	color:#1792D7;
+}

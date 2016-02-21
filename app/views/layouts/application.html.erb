@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quandl and Twilio Apis </title>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<title>Stock Message Service</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
-	<% if !current_user %>
-		<%= link_to "Sign Up For Stock SMS Updates", new_user_path %>
-		<%= link_to "Login", login_path %>
-	<% else %>
-		<%= link_to "Portfolio", user_path(current_user.id) %>
-		<%= link_to "Logout", logout_path, method: :delete %>
-	<% end %>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false" data-target="#mnav">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Stock Message Service</a>	
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav nav-pills navbar-right" id="mnav">
+					<% if !current_user %>
+					<li><%= link_to "Sign Up For Stock SMS Updates", new_user_path, class: "btn btn-primary btn-lg" %></li>
+					<li>
+						<%= link_to login_path, class: "btn btn-primary btn-lg" do %>
+							<span class="glyphicon glyphicon-log-in"></span> Login
+						<% end %>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to user_path(current_user.id), class: "btn btn-primary btn-lg" do%>
+							<span class="glyphicon glyphicon-stats"></span> Portfolio
+						<% end %>
+					</li>
+					<li>
+						<%= link_to logout_path, class: "btn btn-primary btn-lg", method: :delete do %>
+							<span class="glyphicon glyphicon-off"></span> Logout
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	
 	<%= flash[:alert] if flash[:alert] %>
 	<%# flash[:notice] if flash[:notice] %>
-<%= yield %>
+
+
+	<%= yield %>
 
 </body>
 </html>

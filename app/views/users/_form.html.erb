@@ -12,13 +12,19 @@
   <% end %>
   
   <div class="actions">
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+    <div class="form-group">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control"  %>
+    </div>
     <p>Phone must be in the format: 1-xxx-xxx-xxxx</p>
-    <%= f.label :phone %>
-    <%= f.text_field :phone %>
-    <%= f.submit %>
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.text_field :phone, class: "form-control" %>
+    </div>
+    <%= f.submit class: "btn btn-default" %>
   </div>
 <% end %>
