@@ -20,8 +20,8 @@ class StocksController < ApplicationController
 			flash[:notice] = "#{ticker} has been added to your portfolio!"
 			redirect_to user_path(@user)
 		else
-		flash[:alert] = "Could not add stock to portfolio."
-		redirect_to user_path(@user)
+			flash[:alert] = "Could not add stock to portfolio."
+			redirect_to user_path(@user)
 		end
 	end
 

@@ -1,8 +1,6 @@
 class Stock < ActiveRecord::Base
 	belongs_to :user 
 
-	validates :symbol, uniqueness: true
-
 	Quandl::ApiConfig.api_key = 'exAUgh8NLoYAjuwd22PH'
 	Quandl::ApiConfig.api_version = '2015-04-09'
 	# @database = Quandl::Database.get('WIKI')	
@@ -27,7 +25,6 @@ class Stock < ActiveRecord::Base
 		begin
 			query = Quandl::Dataset.get("EOD/#{ticker}").data.first
 			cloned = query.clone
-
 			p ">>>>>>>>>>>>>>>>>>>>>>>>>> EOD"
 			return cloned
 		rescue	
