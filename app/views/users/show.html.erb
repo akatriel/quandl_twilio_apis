@@ -8,7 +8,7 @@
 		<hr>
 		<%= form_tag @stock, remote: true do %>
 			<%= label_tag :ticker %>
-			<%= text_field_tag :ticker %>
+			<%= text_field_tag :ticker,"", autofocus: true %>
 			<%= submit_tag "Add", 'data-disable-with' => "Please wait.."%>
 		<% end %>
 
