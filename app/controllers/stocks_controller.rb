@@ -15,14 +15,20 @@ class StocksController < ApplicationController
 		stock.high = dataset.high
 		stock.low = dataset.low
 		stock.volume = dataset.volume
-
-		if dataset && stock.save 
-			flash[:notice] = "#{ticker} has been added to your portfolio!"
-			redirect_to user_path(@user)
-		else
-			flash[:alert] = "Could not add stock to portfolio."
-			redirect_to user_path(@user)
+		@stocks = @user.stocks
+		respond_to do |format|
+			if dataset && stock.save 
+				format.js
+				format.html { 
+					redirect_to user_path(@user), 
+					notice: "#{ticker} has been added to your portfolio!"
+				}
+			else
+				flash[:alert] = "Could not add stock to portfolio."
+				format.html{redirect_to user_path(@user)}
+			end
 		end
+		
 	end
 
 	def show

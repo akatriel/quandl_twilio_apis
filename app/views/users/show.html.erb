@@ -6,21 +6,19 @@
 		<br>
 
 		<hr>
-		<%= form_tag @stock do %>
+		<%= form_tag @stock, remote: true do %>
 			<%= label_tag :ticker %>
 			<%= text_field_tag :ticker %>
-			<%= submit_tag "Add"%>
+			<%= submit_tag "Add", 'data-disable-with' => "Please wait.."%>
 		<% end %>
 
 		<h1>Portfolio</h1>
 		<hr>
-		<ul>
-			<% @portfolio.each do |p| %>
-				<li> Ticker: <%= p.symbol %> <%= link_to "Show", stock_path(p) %> | <%= link_to "Delete", stock_path(p), method: :delete %></li>
-			<% end %>
+		<ul id="stocks">
+			<%= render @user.stocks %>
 		</ul>
 		<%= form_tag messages_path do %>
-			<%= submit_tag "Send SMS"%>
+			<%= submit_tag "Send SMS", class: "btn btn-primary" %>
 		<% end %>
 	</div>
 </div>

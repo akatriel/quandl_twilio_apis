@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @stock = Stock.new
-    @portfolio = @user.stocks
+    @stocks = @user.stocks
   end
 
   def new
