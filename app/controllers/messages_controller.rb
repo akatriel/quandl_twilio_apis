@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
 			stock_str += "Symbol: #{stock.symbol}" + "\n Date: #{stock.date}" + "\n Open: #{stock.open}" + "\n Close: #{stock.close}" + "\n High: #{stock.high}" + "\n Low: #{stock.low}" + "\n Volume: #{stock.volume}"
 			body.push(stock_str)
 		end
-		body = body.join("\n").html_safe	
+		body = body.join("\n").html_safe
 		p ">>>>>>>>>>>>>>>>>>>>>>>"
 		p body
 

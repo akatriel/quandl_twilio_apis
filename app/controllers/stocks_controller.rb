@@ -30,7 +30,6 @@ class StocksController < ApplicationController
 				format.html{redirect_to user_path(@user)}
 			end
 		end
-		
 	end
 
 	def show
@@ -38,11 +37,17 @@ class StocksController < ApplicationController
 	end
 
 	def destroy
-		stock = Stock.find params[:id]
-		stock.destroy
-		redirect_to user_path(current_user)
+		@stock = Stock.find params[:id]
+		@stock.destroy
+		# byebug
+		respond_to do |format|
+			format.html {redirect_to root_path}
+			format.js
+		end
 	end
+
 	private
+	
 	def stock_params
 		params.require(:stock).permit(:ticker)
 	end
