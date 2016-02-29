@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 			redirect_to current_user
 		else
 			flash[:notice] = "There was a problem creating a session."
-			render :new
+			render 'sessions/new'
 		end
 	end
 	def destroy

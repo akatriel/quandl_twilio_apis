@@ -9,7 +9,23 @@ class Stock < ActiveRecord::Base
 		ticker = ticker.upcase
 		get_dataset_from_wiki(ticker) ? get_dataset_from_wiki(ticker) : 		get_dataset_from_eod(ticker)
 	end
-
+	def self.update
+		users = User.all
+		users.each do |u|
+			stocks = u.stocks
+			stocks.each do |s|
+				ticker = s.symbol
+				data = Stock.get_dataset ticker
+				stock.date = dataset.date
+				stock.open = dataset.open
+				stock.close = dataset.close
+				stock.high = dataset.high
+				stock.low = dataset.low
+				stock.volume = dataset.volume
+				stock.save
+			end
+		end
+	end
 	private
 	def self.get_dataset_from_wiki ticker
 		begin

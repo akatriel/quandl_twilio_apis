@@ -21,14 +21,13 @@ class MessagesController < ApplicationController
 		begin
 			@client.messages.create(
 				from: '+18562882747',#provided by twilio
-				to: "+#{user.phone}",
+				to: "+1#{user.phone}",
 				body: "#{body}"
 			)
-		rescue 
+		rescue
 			flash[:alert] = "Concatenated string of SMS exceeds 1600 character count."
 		ensure
 			redirect_to user_path(current_user)
 		end
 	end
 end
-#A user should be able to send a message to their phone with stock information. Including: Opening, Closing, High, and Low prices.	
