@@ -15,14 +15,14 @@ class Stock < ActiveRecord::Base
 			stocks = u.stocks
 			stocks.each do |s|
 				ticker = s.symbol
-				data = Stock.get_dataset ticker
-				stock.date = dataset.date
-				stock.open = dataset.open
-				stock.close = dataset.close
-				stock.high = dataset.high
-				stock.low = dataset.low
-				stock.volume = dataset.volume
-				stock.save
+				dataset = Stock.get_dataset ticker
+				s.date = dataset.date
+				s.open = dataset.open
+				s.close = dataset.close
+				s.high = dataset.high
+				s.low = dataset.low
+				s.volume = dataset.volume
+				s.save
 			end
 		end
 	end
