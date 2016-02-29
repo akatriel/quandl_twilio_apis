@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 ### added:
 gem 'quandl'
-gem 'lograge'
+# gem 'lograge'
 gem 'twilio-ruby', '~> 4.11.1'
 ### 
 
