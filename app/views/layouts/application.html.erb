@@ -31,9 +31,9 @@
 			<div class="collapse navbar-collapse" role="navigation">
 				<ul class="nav nav-pills navbar-right" id="mnav">
 					<% if !current_user %>
-						<li><%= link_to "Sign Up For Stock SMS Updates", new_user_path, class: "btn btn-primary btn-lg" %></li>
+						<li><%= link_to "Sign Up For Stock SMS Updates", new_user_path, class: "btn btn-primary btn-lg test" %></li>
 						<li>
-							<%= link_to login_path, class: "btn btn-primary btn-lg" do %>
+							<%= link_to login_path, class: "btn btn-primary btn-lg test" do %>
 								<span class="glyphicon glyphicon-log-in"></span> Login
 							<% end %>
 						</li>
@@ -55,7 +55,6 @@
 	</nav>
 	
 	<%= flash[:alert] if flash[:alert] %>
-	<%# flash[:notice] if flash[:notice] %>
 
 
 	<%= yield %>
