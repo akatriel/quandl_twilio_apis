@@ -29,6 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'quandl'
 # gem 'lograge'
 gem 'twilio-ruby', '~> 4.11.1'
+gem 'phonelib'
 ### 
 
 

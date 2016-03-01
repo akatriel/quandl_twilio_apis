@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     session.clear
+    flash[:notice] = "User deleted."
     redirect_to new_user_path
   end
 
