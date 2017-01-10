@@ -1,8 +1,11 @@
 class MessagesController < ApplicationController
 	def create
-		byebug
-		account_sid = ENV['TWILIO_SID']
-		auth_token = ENV['TWILIO_AUTH_TOKEN']
+
+		twilioInfo = []
+		File.foreach('./secrets.text') {|x| twilioInfo << x}
+
+		account_sid = twilioInfo[0].split(' ').last
+		auth_token = twilioInfo[1].split(' ').last
 		@client = Twilio::REST::Client.new account_sid, auth_token
 
 		user = current_user
@@ -19,14 +22,15 @@ class MessagesController < ApplicationController
 		p ">>>>>>>>>>>>>>>>>>>>>>>"
 		p body
 
+
 		begin
 			@client.messages.create(
-				from: '+18562882747',#provided by twilio
+				from: '+17142036952',#provided by twilio
 				to: "+1#{user.phone}",
 				body: "#{body}"
 			)
 		rescue
-			flash[:alert] = "Concatenated string of SMS exceeds 1600 character count."
+			flash[:alert] = "There was an issue sending your message."
 		ensure
 			redirect_to user_path(current_user)
 		end

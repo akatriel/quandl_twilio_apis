@@ -7,8 +7,13 @@ class Stock < ActiveRecord::Base
 
 	def self.get_dataset ticker
 		ticker = ticker.upcase
-		get_dataset_from_wiki(ticker) ? get_dataset_from_wiki(ticker) : 		get_dataset_from_eod(ticker)
+		get_dataset_from_wiki(ticker) 
+		# ? get_dataset_from_wiki(ticker) : get_dataset_from_eod(ticker)
 	end
+
+	# Fucking awful to iterate through every user every time a stock/etf is updated.
+	# Not a scalable method
+
 	def self.update
 		users = User.all
 		users.each do |u|
@@ -26,6 +31,7 @@ class Stock < ActiveRecord::Base
 			end
 		end
 	end
+
 	private
 	def self.get_dataset_from_wiki ticker
 		begin
@@ -37,14 +43,17 @@ class Stock < ActiveRecord::Base
 			return false
 		end
 	end
-	def self.get_dataset_from_eod ticker
-		begin
-			query = Quandl::Dataset.get("EOD/#{ticker}").data.first
-			cloned = query.clone
-			p ">>>>>>>>>>>>>>>>>>>>>>>>>> EOD"
-			return cloned
-		rescue	
-			return false
-		end
-	end
+
+	# EOD For ETF's doesnt seem to exist anymore.
+
+	# def self.get_dataset_from_eod ticker
+	# 	# begin
+	# 		query = Quandl::Dataset.get("EOD/#{ticker}").data.first
+	# 		cloned = query.clone
+	# 		p ">>>>>>>>>>>>>>>>>>>>>>>>>> EOD"
+	# 		return cloned
+	# 	# rescue	
+	# 	# 	return false
+	# 	# end
+	# end
 end

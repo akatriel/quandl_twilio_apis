@@ -5,7 +5,6 @@ class StocksController < ApplicationController
 		ticker = params[:ticker].upcase
 		#API query
 		dataset = Stock.get_dataset "#{ticker}"
-		
 		stock = Stock.new
 		stock.symbol = ticker
 		stock.user_id = @user.id
