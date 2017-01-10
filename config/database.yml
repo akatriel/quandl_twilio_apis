@@ -11,7 +11,11 @@ default: &default
 
 development:
   <<: *default
-  database: my_database_production
+  encoding: unicode
+  database: akatriel
+  username: stock
+  password: flo
+  pool: 5
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
