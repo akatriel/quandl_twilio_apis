@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 gem 'rails'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -24,19 +24,19 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+###
 gem 'tzinfo-data'
-
-### added:
-gem 'quandl'
-# gem 'lograge'
 gem 'twilio-ruby', '~> 4.11.1'
 gem 'phonelib'
+gem 'bootstrap-sass'
+gem 'pg'
+gem 'httparty'
+gem 'nokogiri'
+gem 'quandl'
 ### 
-
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+###
 
 # Use Unicorn as the app server
 # gem 'unicorn'

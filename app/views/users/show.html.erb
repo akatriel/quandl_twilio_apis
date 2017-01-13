@@ -1,6 +1,7 @@
 <div class="container">
 	<div class="center">
 		<p id="notice"><%= notice %></p>
+		<p class="text-danger"><%= alert %></p>
 		<h1> Welcome, <%= @user.username %> </h1>
 		<%= link_to 'Edit User Info', edit_user_path(@user) %>
 		<br>

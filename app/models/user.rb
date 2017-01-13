@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	has_secure_password
-	has_many :stocks
+	has_many :assets
+	has_many :stocks, through: :assets
 
 	validates :username, presence: true, uniqueness: true 
 	validates :password, length: { in: 6..20 }

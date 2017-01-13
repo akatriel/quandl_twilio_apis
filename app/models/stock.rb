@@ -1,14 +1,22 @@
+require 'httparty'
+require 'nokogiri'
 class Stock < ActiveRecord::Base
-	belongs_to :user 
+	has_many :assets
+	has_many :users, through: :assets
 
 	Quandl::ApiConfig.api_key = 'exAUgh8NLoYAjuwd22PH'
 	Quandl::ApiConfig.api_version = '2015-04-09'
 	# @database = Quandl::Database.get('WIKI')	
 
-	def self.get_dataset ticker
-		ticker = ticker.upcase
-		get_dataset_from_wiki(ticker) 
-		# ? get_dataset_from_wiki(ticker) : get_dataset_from_eod(ticker)
+	def self.get_dataset_from_wiki ticker
+		begin
+			query = Quandl::Dataset.get("WIKI/#{ticker.upcase}").data.first
+			cloned = query.clone
+			p ">>>>>>>>>>>>>>>>>>>>>>> WIKI"
+			return cloned
+		rescue
+			return false
+		end
 	end
 
 	# Fucking awful to iterate through every user every time a stock/etf is updated.
@@ -33,27 +41,11 @@ class Stock < ActiveRecord::Base
 	end
 
 	private
-	def self.get_dataset_from_wiki ticker
-		begin
-			query = Quandl::Dataset.get("WIKI/#{ticker}").data.first
-			cloned = query.clone
-			p ">>>>>>>>>>>>>>>>>>>>>>> WIKI"
-			return cloned
-		rescue
-			return false
-		end
+	
+
+	def self.get_dataset_from_WA ticker
+		url = "http://api.wolframalpha.com/v2/query?input=#{ticker}&appid=5UHKGU-L46E3GWYV9&assumption=*C.AA-_*Financial-&format=image,imagemap"
+		response = HTTParty.get url
+		response
 	end
-
-	# EOD For ETF's doesnt seem to exist anymore.
-
-	# def self.get_dataset_from_eod ticker
-	# 	# begin
-	# 		query = Quandl::Dataset.get("EOD/#{ticker}").data.first
-	# 		cloned = query.clone
-	# 		p ">>>>>>>>>>>>>>>>>>>>>>>>>> EOD"
-	# 		return cloned
-	# 	# rescue	
-	# 	# 	return false
-	# 	# end
-	# end
 end

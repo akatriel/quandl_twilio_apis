@@ -1,5 +1,6 @@
 <div class="container">
 	<h1><%= @stock.symbol %></h1>
+	<p style="color:orange;"><%= @updatedPrice %>
 	<hr>
 	<ul>
 		<li><p>Date: <%= @stock.date %></p></li>
@@ -10,4 +11,8 @@
 		<li><p>Volume: <%= @stock.volume %></p></li>
 	</ul>
 	<%= link_to "Back", user_path(current_user) %>
+	<p style="color:orange;"><%= @dataset["queryresult"]["pod"] %></p>
+	<% @images.each do |src| %>
+		<%= image_tag src %>
+	<% end %>
 </div>
