@@ -8,6 +8,9 @@ class UsersController < ApplicationController
     @user = current_user
     @stock = Stock.new
     @stocks = @user.stocks
+    flash.now
+    p '<<<<<'
+    p flash[:alert]
   end
 
   def new

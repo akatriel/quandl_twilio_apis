@@ -1,18 +1,42 @@
 <div class="container">
 	<h1><%= @stock.symbol %></h1>
-	<p style="color:orange;"><%= @updatedPrice %>
 	<hr>
-	<ul>
-		<li><p>Date: <%= @stock.date %></p></li>
-		<li><p>Open: <%= @stock.open %></p></li>
-		<li><p>Close: <%= @stock.close %></p></li>
-		<li><p>High: <%= @stock.high %></p></li>
-		<li><p>Low: <%= @stock.low %></p></li>
-		<li><p>Volume: <%= @stock.volume %></p></li>
-	</ul>
-	<%= link_to "Back", user_path(current_user) %>
-	<p style="color:orange;"><%= @dataset["queryresult"]["pod"] %></p>
-	<% @images.each do |src| %>
-		<%= image_tag src %>
+	<% if @data %>
+		<h2>Recent Information: </h2>
+		<div class="container waContainer text-center">
+			<% if @data[:price] %>
+				<h4>Quote: <span id="quote"><%= @data[:price] %></span> | 
+			<% end %>
+			<% if @data[:time] %>
+				Updated: <%= @data[:time] %> | 
+			<% end %>
+			<% if @data[:exchange] %>
+				Exchange: <%= @data[:exchange] %></h4>
+			<% end %>
+			<% if @data[:src] %>
+				<hr>
+				<h3>Price History</h3>
+				<div>
+					<img class="waImage"
+						src=<%= @data[:src] %>
+						alt=<%= @data[:alt] %> 
+						width=<%= @data[:width] %> 
+						height=<%= @data[:height] %>
+					>
+				</div>
+			<% end %>
+		</div>
 	<% end %>
+	<h2>Previous Market Close Data:</h2>
+	<div>
+		<ul class="list-group">
+			<li class="list-group-item"><p>Date: <%= @stock.date %></p></li>
+			<li class="list-group-item"><p>Previous Open: <%= @stock.open %></p></li>
+			<li class="list-group-item"><p>Previous Close: <%= @stock.close %></p></li>
+			<li class="list-group-item"><p>Previous High: <%= @stock.high %></p></li>
+			<li class="list-group-item"><p>Previous Low: <%= @stock.low %></p></li>
+			<li class="list-group-item"><p>Volume: <%= @stock.volume %></p></li>
+		</ul>
+	</div>
+	<%= button_to "Back", user_path(current_user), class: "btn btn-default", method: :get %>
 </div>

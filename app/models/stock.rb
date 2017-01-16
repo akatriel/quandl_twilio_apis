@@ -40,11 +40,13 @@ class Stock < ActiveRecord::Base
 		end
 	end
 
-	private
-	
-
 	def self.get_dataset_from_WA ticker
-		url = "http://api.wolframalpha.com/v2/query?input=#{ticker}&appid=5UHKGU-L46E3GWYV9&assumption=*C.AA-_*Financial-&format=image,imagemap"
+		ticker = ticker.upcase
+		url = "http://api.wolframalpha.com/v2/query?
+		input=#{ticker}
+		&assumption=*C.#{ticker}-_*Financial-
+		&scanner=FinancialData
+		&appid=5UHKGU-L46E3GWYV9"
 		response = HTTParty.get url
 		response
 	end
