@@ -1,8 +1,24 @@
 require 'httparty'
 require 'nokogiri'
+
 class Stock < ActiveRecord::Base
 	has_many :assets
 	has_many :users, through: :assets
+
+	def self.get_dataset_from_WA ticker
+		ticker = ticker.upcase
+		url = "http://api.wolframalpha.com/v2/query?
+		input=#{ticker}
+		&assumption=*C.#{ticker}-_*Financial-
+		&scanner=FinancialData
+		&appid=5UHKGU-L46E3GWYV9"
+		begin
+			response = HTTParty.get url
+			response
+		rescue
+			return false
+		end
+	end
 
 	Quandl::ApiConfig.api_key = 'exAUgh8NLoYAjuwd22PH'
 	Quandl::ApiConfig.api_version = '2015-04-09'
@@ -21,6 +37,7 @@ class Stock < ActiveRecord::Base
 
 	# Fucking awful to iterate through every user every time a stock/etf is updated.
 	# Not a scalable method
+	# Need to refactor
 
 	def self.update
 		users = User.all
@@ -40,14 +57,5 @@ class Stock < ActiveRecord::Base
 		end
 	end
 
-	def self.get_dataset_from_WA ticker
-		ticker = ticker.upcase
-		url = "http://api.wolframalpha.com/v2/query?
-		input=#{ticker}
-		&assumption=*C.#{ticker}-_*Financial-
-		&scanner=FinancialData
-		&appid=5UHKGU-L46E3GWYV9"
-		response = HTTParty.get url
-		response
-	end
+
 end

@@ -46,6 +46,7 @@ class StocksController < ApplicationController
 	def show
 		@stock = Stock.find params[:id]
 		@data = clean_wolf_data @stock.symbol
+		# if request fails @data will be false and page section will not render
 	end
 
 	def destroy
@@ -67,6 +68,10 @@ class StocksController < ApplicationController
 			# Company name
 		# API call
 		dataset = Stock.get_dataset_from_WA ticker
+		
+		return false if dataset == false
+
+
 		return_data = {}
 
 		if dataset["queryresult"]["datatypes"] == "Financial"
