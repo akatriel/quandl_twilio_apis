@@ -14,6 +14,7 @@ class Stock < ActiveRecord::Base
 		&appid=5UHKGU-L46E3GWYV9"
 		begin
 			response = HTTParty.get url
+			
 			response
 		rescue
 			return false

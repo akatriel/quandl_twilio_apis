@@ -71,26 +71,27 @@ class StocksController < ApplicationController
 		
 		return false if dataset == false
 
-
-		return_data = {}
-
-		if dataset["queryresult"]["datatypes"] == "Financial"
-
-			images = []
-			quote_data = nil
-			historyIMG = nil
-			dataset["queryresult"]["pod"].each do |pod|
-				if pod["id"] == "Quote"
-					quote_data = get_quote_data pod
-					return_data = return_data.merge quote_data unless quote_data.nil?
-				end
-				if pod["id"] == "PriceHistory"
-					historyIMG = get_price_history pod
-					return_data = return_data.merge(historyIMG) unless historyIMG.nil?
+		if dataset == false 
+			return false
+		else 
+			return_data = {}
+			
+			if dataset["queryresult"]["datatypes"] == "Financial"
+				images = []
+				quote_data = nil
+				historyIMG = nil
+				dataset["queryresult"]["pod"].each do |pod|
+					if pod["id"] == "Quote"
+						quote_data = get_quote_data pod
+						return_data = return_data.merge quote_data unless quote_data.nil?
+					end
+					if pod["id"] == "PriceHistory"
+						historyIMG = get_price_history pod
+						return_data = return_data.merge(historyIMG) unless historyIMG.nil?
+					end
 				end
 			end
 		end
-
 		return_data
 	end
 
