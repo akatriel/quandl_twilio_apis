@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 	def create
 		user = User.where(username: params[:username]).first
 		if user && user.authenticate(params[:password])
+			flash[:notice] = "Login Success"
 			session[:user_id] = user.id
 			redirect_to current_user
 		else

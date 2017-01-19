@@ -1,0 +1,28 @@
+<% if @data %>
+	<h2>Recent Information: </h2>
+	<div class="container waContainer text-center">
+		<h4>
+		<% if @data[:price] %>
+			Quote: <span id="quote"><%= @data[:price] %></span> | 
+		<% end %>
+		<% if @data[:time] %>
+			Updated: <%= @data[:time] %> | 
+		<% end %>
+		<% if @data[:exchange] %>
+			<%= @data[:exchange] %>
+		<% end %>
+		</h4>
+		<% if @data[:src] %>
+			<hr>
+			<h3>Price History</h3>
+			<div>
+				<img class="waImage"
+					src=<%= @data[:src] %>
+					alt=<%= @data[:alt] %> 
+					width=<%= @data[:width] %> 
+					height=<%= @data[:height] %>
+				>
+			</div>
+		<% end %>
+	</div>
+<% end %>	

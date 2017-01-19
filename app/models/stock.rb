@@ -5,6 +5,17 @@ class Stock < ActiveRecord::Base
 	has_many :assets
 	has_many :users, through: :assets
 
+	def self.get_dataset_from_fool ticker
+		ticker = ticker.upcase
+		apikey = ENV["FOOL_KEY"]
+		url = "http://www.fool.com/a/caps/ws/Ticker/#{ticker}?apikey=#{apikey}"
+		begin
+			HTTParty.get url
+		rescue
+			return false
+		end
+	end
+
 	def self.get_dataset_from_WA ticker
 		ticker = ticker.upcase
 		url = "http://api.wolframalpha.com/v2/query?

@@ -13,8 +13,7 @@ development:
   <<: *default
   encoding: unicode
   database: akatriel
-  username: stock
-  password: flo
+  
   pool: 5
 
 # Warning: The database defined as "test" will be erased and

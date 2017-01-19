@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @stock = Stock.new
     @stocks = @user.stocks
     flash.now
-    p '<<<<<'
+    p '<<<<< User show - flash alert: >>>>>>'
     p flash[:alert]
   end
 

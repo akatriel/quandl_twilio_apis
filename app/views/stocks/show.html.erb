@@ -1,32 +1,28 @@
-<div class="container">
-	<h1><%= @stock.symbol %></h1>
-	<hr>
-	<% if @data %>
-		<h2>Recent Information: </h2>
+<div id="stockShow" class="container">
+	<% if @fool %>
+		<h1><%= @stock.symbol %> - <%= @fool[:company] if @fool[:company]%></h1>
+		<hr>
+	<% else %>
+		<h1><%= @stock.symbol %></h1>
+		<hr>
+	<% end %>
+
+	<% if @fool %>
+		<h2>Data from Motley Fool:</h2>
 		<div class="container waContainer text-center">
-			<% if @data[:price] %>
-				<h4>Quote: <span id="quote"><%= @data[:price] %></span> | 
+			<h4>
+			<% if @fool[:latestPrice] %>
+				Quote: <%= @fool[:latestPrice] %> | 
 			<% end %>
-			<% if @data[:time] %>
-				Updated: <%= @data[:time] %> | 
+			<% if @fool[:latestPriceDate] %>
+				Updated at: <%= distance_of_time_in_words Time.now, @fool[:latestPriceDate] %> ago | 
 			<% end %>
-			<% if @data[:exchange] %>
-				Exchange: <%= @data[:exchange] %></h4>
-			<% end %>
-			<% if @data[:src] %>
-				<hr>
-				<h3>Price History</h3>
-				<div>
-					<img class="waImage"
-						src=<%= @data[:src] %>
-						alt=<%= @data[:alt] %> 
-						width=<%= @data[:width] %> 
-						height=<%= @data[:height] %>
-					>
-				</div>
-			<% end %>
+			<%= @fool[:exchange] if @fool[:exchange] %>
+			</h4> 
 		</div>
 	<% end %>
+
+	
 	<h2>Previous Market Close Data:</h2>
 	<div>
 		<ul class="list-group">

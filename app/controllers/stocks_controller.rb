@@ -44,9 +44,27 @@ class StocksController < ApplicationController
 	end
 
 	def show
+
 		@stock = Stock.find params[:id]
-		@data = clean_wolf_data @stock.symbol
 		# if request fails @data will be false and page section will not render
+		@fool = clean_fool_data @stock.symbol
+
+	end
+
+	def clean_fool_data ticker
+		dataset = Stock.get_dataset_from_fool ticker
+
+		time = dataset["TickerList"]["TimeStamp"]
+		time = DateTime.parse time
+		exchange = dataset["TickerList"]["Ticker"]["Exchange"]
+
+		company = dataset["TickerList"]["Ticker"]["CompanyName"]
+		day30return = dataset["TickerList"]["Ticker"]["Day30Return"]
+		latestPriceDate = dataset["TickerList"]["Ticker"]["LatestPriceDate"]
+		latestPriceDate = DateTime.parse latestPriceDate
+		latestPrice = dataset["TickerList"]["Ticker"]["LatestPrice"].to_f.round(2)
+
+		return {time:time,exchange: exchange, company: company, day30return:day30return,latestPriceDate:latestPriceDate,latestPrice:latestPrice}
 	end
 
 	def destroy
