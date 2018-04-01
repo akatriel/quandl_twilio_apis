@@ -12,7 +12,7 @@ default: &default
 development:
   <<: *default
   encoding: unicode
-  database: akatriel
+  database: sms
   
   pool: 5
 

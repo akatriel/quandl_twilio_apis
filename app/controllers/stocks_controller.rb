@@ -44,28 +44,12 @@ class StocksController < ApplicationController
 	end
 
 	def show
-
 		@stock = Stock.find params[:id]
 		# if request fails @data will be false and page section will not render
 		@fool = clean_fool_data @stock.symbol
-
 	end
 
-	def clean_fool_data ticker
-		dataset = Stock.get_dataset_from_fool ticker
-
-		time = dataset["TickerList"]["TimeStamp"]
-		time = DateTime.parse time
-		exchange = dataset["TickerList"]["Ticker"]["Exchange"]
-
-		company = dataset["TickerList"]["Ticker"]["CompanyName"]
-		day30return = dataset["TickerList"]["Ticker"]["Day30Return"]
-		latestPriceDate = dataset["TickerList"]["Ticker"]["LatestPriceDate"]
-		latestPriceDate = DateTime.parse latestPriceDate
-		latestPrice = dataset["TickerList"]["Ticker"]["LatestPrice"].to_f.round(2)
-
-		return {time:time,exchange: exchange, company: company, day30return:day30return,latestPriceDate:latestPriceDate,latestPrice:latestPrice}
-	end
+	
 
 	def destroy
 		@stock = Stock.find params[:id]
@@ -78,66 +62,30 @@ class StocksController < ApplicationController
 	end
 
 	private
+	def clean_fool_data ticker
+		dataset = Stock.get_dataset_from_fool ticker
+		if !dataset.nil? and dataset.code == 200
+			time = dataset["TickerList"]["TimeStamp"]
+			time = DateTime.parse time
+			exchange = dataset["TickerList"]["Ticker"]["Exchange"]
 
-	def clean_wolf_data ticker
-		# Things to display
-			# Updated price
-			# Time and DAte
-			# Company name
-		# API call
-		dataset = Stock.get_dataset_from_WA ticker
-		
-		return false if dataset == false
+			company = dataset["TickerList"]["Ticker"]["CompanyName"]
+			day30return = dataset["TickerList"]["Ticker"]["Day30Return"]
+			latestPriceDate = dataset["TickerList"]["Ticker"]["LatestPriceDate"]
+			latestPriceDate = DateTime.parse latestPriceDate
+			latestPrice = dataset["TickerList"]["Ticker"]["LatestPrice"].to_f.round(2)
 
-		if dataset == false 
+			return {
+				time:time,
+				exchange: exchange,
+				company: company,
+				day30return:day30return,
+				latestPriceDate:latestPriceDate,
+				latestPrice:latestPrice
+			}
+		else
 			return false
-		else 
-			return_data = {}
-			
-			if dataset["queryresult"]["datatypes"] == "Financial"
-				images = []
-				quote_data = nil
-				historyIMG = nil
-				dataset["queryresult"]["pod"].each do |pod|
-					if pod["id"] == "Quote"
-						quote_data = get_quote_data pod
-						return_data = return_data.merge quote_data unless quote_data.nil?
-					end
-					if pod["id"] == "PriceHistory"
-						historyIMG = get_price_history pod
-						return_data = return_data.merge(historyIMG) unless historyIMG.nil?
-					end
-				end
-			end
 		end
-		return_data
-	end
-
-	def get_price_history pod
-		src = pod["subpod"]["img"]["src"]
-		alt = pod["subpod"]["img"]["alt"]
-		width = pod["subpod"]["img"]["width"]
-		height = pod["subpod"]["img"]["height"]
-		{
-			src: src,
-			alt: alt,
-			width: width,
-			height: height
-		}
-	end
-
-	def get_quote_data pod
-		alt = pod["subpod"]["img"]["alt"].split(' ')
-
-		price = alt[0].gsub(/[^\d\.]/, '').to_f
-		time = alt[-3] << " " << alt[-2] << " " << alt[-1][0...alt[-1].length - 1]
-		exchange = alt[3]
-
-		{
-			price: price,
-			time: time,
-			exchange: exchange
-		}
 	end
 	
 	def getWIKIAndCreate ticker
@@ -163,3 +111,65 @@ class StocksController < ApplicationController
 		params.require(:stock).permit(:ticker)
 	end
 end
+
+# def clean_wolf_data ticker
+	# 	# Things to display
+	# 		# Updated price
+	# 		# Time and DAte
+	# 		# Company name
+	# 	# API call
+	# 	dataset = Stock.get_dataset_from_WA ticker
+		
+	# 	return false if dataset == false
+
+	# 	if dataset == false 
+	# 		return false
+	# 	else 
+	# 		return_data = {}
+			
+	# 		if dataset["queryresult"]["datatypes"] == "Financial"
+	# 			images = []
+	# 			quote_data = nil
+	# 			historyIMG = nil
+	# 			dataset["queryresult"]["pod"].each do |pod|
+	# 				if pod["id"] == "Quote"
+	# 					quote_data = get_quote_data pod
+	# 					return_data = return_data.merge quote_data unless quote_data.nil?
+	# 				end
+	# 				if pod["id"] == "PriceHistory"
+	# 					historyIMG = get_price_history pod
+	# 					return_data = return_data.merge(historyIMG) unless historyIMG.nil?
+	# 				end
+	# 			end
+	# 		end
+	# 	end
+	# 	return_data
+	# end
+
+	# def get_price_history pod
+	# 	src = pod["subpod"]["img"]["src"]
+	# 	alt = pod["subpod"]["img"]["alt"]
+	# 	width = pod["subpod"]["img"]["width"]
+	# 	height = pod["subpod"]["img"]["height"]
+	# 	{
+	# 		src: src,
+	# 		alt: alt,
+	# 		width: width,
+	# 		height: height
+	# 	}
+	# end
+
+	# def get_quote_data pod
+	# 	alt = pod["subpod"]["img"]["alt"].split(' ')
+
+	# 	price = alt[0].gsub(/[^\d\.]/, '').to_f
+	# 	time = alt[-3] << " " << alt[-2] << " " << alt[-1][0...alt[-1].length - 1]
+	# 	exchange = alt[3]
+
+	# 	{
+	# 		price: price,
+	# 		time: time,
+	# 		exchange: exchange
+	# 	}
+	# end
+	

@@ -37,7 +37,7 @@ gem 'quandl'
 gem 'dotiw'
 ### 
 # Use ActiveModel has_secure_password
-gem 'bcrypt'
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
 ###
 
 # Use Unicorn as the app server
@@ -50,6 +50,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry-rails'
+  gem 'figaro'
 end
 
 group :development do

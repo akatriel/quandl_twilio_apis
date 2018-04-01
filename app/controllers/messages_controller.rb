@@ -1,16 +1,9 @@
 class MessagesController < ApplicationController
 	def create
-
-		twilioInfo = []
-		File.foreach('./secrets.text') {|x| twilioInfo << x}
-
-		account_sid = twilioInfo[0].split(' ').last
-		auth_token = twilioInfo[1].split(' ').last
-		@client = Twilio::REST::Client.new account_sid, auth_token
+		@client = Twilio::REST::Client.new ENV["twilio_account_sid"], ENV["twilio_auth_token"]
 
 		user = current_user
 		portfolio = user.stocks
-
 
 		body = []
 		portfolio.each do |stock|
@@ -25,7 +18,7 @@ class MessagesController < ApplicationController
 
 		begin
 			@client.messages.create(
-				from: '+17142036952',#provided by twilio
+				from: "+1#{ENV['twilio_number']}",#provided by twilio
 				to: "+1#{user.phone}",
 				body: "#{body}"
 			)

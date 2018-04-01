@@ -7,7 +7,7 @@ class Stock < ActiveRecord::Base
 
 	def self.get_dataset_from_fool ticker
 		ticker = ticker.upcase
-		apikey = ENV["FOOL_KEY"]
+		apikey = ENV["fool_key"]
 		url = "http://www.fool.com/a/caps/ws/Ticker/#{ticker}?apikey=#{apikey}"
 		begin
 			HTTParty.get url
